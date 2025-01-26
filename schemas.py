@@ -89,10 +89,19 @@ class PersonBase(BaseModel):
     email: Optional[str]
     phone: str
     is_owner: bool
+    profile_image: Optional[str]
     birth_date: Optional[date]
     class Config:
         from_attributes = True
+class PersonUpdate(BaseModel):
+    first_name: Optional[str]
+    last_name: Optional[str]
+    email: Optional[str]
+    phone: Optional[str]
+    birth_date: Optional[date]
 
+    class Config:
+        from_attributes = True
 class LoginRequest(BaseModel):
     email: str
     password: str

@@ -199,3 +199,15 @@ def delete_room_image(db: Session, image_id: int):
         os.remove(file_path)
     db.delete(image)
     db.commit()
+def update_person(db: Session, user_id: int, updates: dict):
+    person = db.query(Person).filter(Person.id == user_id).first()
+    if not person:
+        raise ValueError("User not found")
+
+    for key, value in updates.items():
+        if hasattr(person, key) and value is not None:
+            setattr(person, key, value)
+
+    db.commit()
+    db.refresh(person)
+    return person
